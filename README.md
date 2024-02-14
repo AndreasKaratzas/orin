@@ -24,7 +24,7 @@ This tutorial was written for the NVIDIA Jetson Orin Nano Developer Kit (8 GB). 
 | VPI | 3.0.10 |
 | Vulkan | 1.3.204 |
 
-__IMPORTANT WARNING__: The host must be running on __Ubuntu 20.04__to flash the board. 
+__IMPORTANT WARNING__: The host must be running on __Ubuntu 20.04__ to flash the board. 
 
 
 ### Flashing the Board
