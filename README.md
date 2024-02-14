@@ -24,19 +24,19 @@ This tutorial was written for the NVIDIA Jetson Orin Nano Developer Kit (8 GB). 
 | VPI | 3.0.10 |
 | Vulkan | 1.3.204 |
 
-__IMPORTANT WARNING__ : To flash the board, the host must be running on __Ubuntu 20.04__. 
+__IMPORTANT WARNING__: The host must be running on __Ubuntu 20.04__to flash the board. 
 
 
 ### Flashing the Board
 
-The board can be flashed using the SDK Manager. The SDK Manager can be downloaded from the [NVIDIA website](https://developer.nvidia.com/nvidia-sdk-manager). To flash the board, force the board in recovery mode by following the steps in [https://www.youtube.com/watch?v=q4fGac-nrTI&t=218s](JetsonHacks Tutorial). Then, select the following options:
+The board can be flashed using the SDK Manager. The SDK Manager can be downloaded from the [NVIDIA website](https://developer.nvidia.com/nvidia-sdk-manager). To flash the board, force the board into recovery mode by following the steps in [JetsonHacks Tutorial](https://www.youtube.com/watch?v=q4fGac-nrTI&t=218s). Then, select the following options:
 
 - Host Machine: Ubuntu 20.04
 - Target Hardware: Jetson Orin Nano Developer Kit 8 GB
 - Target OS: Jetpack 6.0 DP
 - DeepStream: 6.0
 
-In my case, I had already mounted a `NVME SSD` as a storage component. Most tutorials do SD cards, but for performance reasons, I went with an mainstream 1 TB NVME SSD. Select the `pre-config` option to setup the board and initialize with a username and a password. For simplicity, the username and password are set to `nvidia`. The board will be flashed and the board will be ready to use.
+In my case, I had already mounted an `NVME SSD` as a storage component. Most tutorials do SD cards, but I went with a mainstream 1 TB NVME SSD for performance reasons. Select the `pre-config` option to set the board and initialize it with a username and a password. For simplicity, the username and password are set to `nvidia`. The board will be flashed, and it will be ready to use.
 
 ### Setting up the Board
 
