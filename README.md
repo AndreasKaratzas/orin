@@ -125,7 +125,7 @@ sudo apt install code
 ```
 
 
-### Board Case
+### Case
 
 For my board, I bought the [Yahboom CUBE nano case](https://www.amazon.com/Yahboom-Dissipation-Protect-Cooling-Antenna/dp/B0CD71X8SV). On [their page](http://www.yahboom.net/study/CUBE_NANO), there are also [tutorials](https://youtu.be/anbMcWsagn8) and [code](https://drive.google.com/drive/folders/1A4L1ec-Na1_K0K1LXdnzSCva2iZ02YVX) for setting up the case and configuring the OLED screen that comes with it. Finally, there is also a [GitHub repo](https://github.com/YahboomTechnology/Jetson-CUBE-case) associated with the case.
 
