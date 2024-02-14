@@ -1,5 +1,5 @@
 
-# Orin
+# Setting up the NVIDIA Jetson Orin Nano
 
 This tutorial was written for the NVIDIA Jetson Orin Nano Developer Kit (8 GB). The tutorial was written on `2024-2-13:19-42-5`. Details of the board are:
 
@@ -29,6 +29,7 @@ __IMPORTANT WARNING__: The host must be running on __Ubuntu 20.04__to flash the 
 
 ### Flashing the Board
 
+
 The board can be flashed using the SDK Manager. The SDK Manager can be downloaded from the [NVIDIA website](https://developer.nvidia.com/nvidia-sdk-manager). To flash the board, force the board into recovery mode by following the steps in [JetsonHacks Tutorial](https://www.youtube.com/watch?v=q4fGac-nrTI&t=218s). Then, select the following options:
 
 - Host Machine: Ubuntu 20.04
@@ -37,6 +38,7 @@ The board can be flashed using the SDK Manager. The SDK Manager can be downloade
 - DeepStream: 6.0
 
 In my case, I had already mounted an `NVME SSD` as a storage component. Most tutorials do SD cards, but I went with a mainstream 1 TB NVME SSD for performance reasons. Select the `pre-config` option to set the board and initialize it with a username and a password. For simplicity, the username and password are set to `nvidia`. The board will be flashed, and it will be ready to use.
+
 
 ### Setting up the Board
 
@@ -68,6 +70,7 @@ chmod +x Miniconda3-latest-Linux-aarch64.sh
 ./Miniconda3-latest-Linux-aarch64.sh
 ```
 
+
 ### Checking CUDA and cuDNN
 
 Before we advance on checking CUDA and cuDNN, we need to verify `gcc` and `nvidia-smi`:
@@ -95,12 +98,28 @@ make clean && make
 ./mnistCUDNN
 ```
 
-### Monitoring the Board
 
+### Monitoring the Board
 
 To monitor the board, we will install `jetson-stats`:
 ```bash
 sudo pip3 install -U jetson-stats
+```
+
+
+### VS Code
+
+If you are a Visual Studio Code user, it is supported on the Jetson. Run the following commands:
+
+```bash
+cd Downloads/
+wget -qO- https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > packages.microsoft.gpg
+sudo install -o root -g root -m 644 packages.microsoft.gpg /etc/apt/trusted.gpg.d/
+sudo sh -c 'echo "deb [arch=amd64,arm64,armhf signed-by=/etc/apt/trusted.gpg.d/packages.microsoft.gpg] https://packages.microsoft.com/repos/code stable main" > /etc/apt/sources.list.d/vscode.list'
+rm -f packages.microsoft.gpg
+sudo apt install apt-transport-https
+sudo apt update
+sudo apt install code
 ```
 
 
