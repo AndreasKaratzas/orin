@@ -106,6 +106,8 @@ To monitor the board, we will install `jetson-stats`:
 sudo pip3 install -U jetson-stats
 ```
 
+To check your board details and version of different software using `jtop`, as well as the usage across its computing resources and power consumption, there are some Python scripts that use `jtop`. For example [`jtop_properties.py`](https://github.com/rbonghi/jetson_stats/blob/master/examples/jtop_properties.py) is a quick way to monitor the aforementioned.
+
 
 ### VS Code
 
@@ -121,6 +123,11 @@ sudo apt install apt-transport-https
 sudo apt update
 sudo apt install code
 ```
+
+
+### Board Case
+
+For my board, I bought the [Yahboom CUBE nano case](https://www.amazon.com/Yahboom-Dissipation-Protect-Cooling-Antenna/dp/B0CD71X8SV). On [their page](http://www.yahboom.net/study/CUBE_NANO), there are also [tutorials](https://youtu.be/anbMcWsagn8) and [code](https://drive.google.com/drive/folders/1A4L1ec-Na1_K0K1LXdnzSCva2iZ02YVX) for setting up the case and configuring the OLED screen that comes with it. Finally, there is also a [GitHub repo](https://github.com/YahboomTechnology/Jetson-CUBE-case) associated with the case.
 
 
 ### Notes
