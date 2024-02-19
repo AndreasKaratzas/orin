@@ -50,13 +50,8 @@ sudo reboot
 Then, install the following packages:
 ```bash
 sudo apt-get upgrade
-sudo apt install ssh firefox zlib1g 
 sudo apt-get install python3 python3-dev python3-distutils python3-venv python3-pip
-sudo apt-get install ninja-build
-sudo apt install software-properties-common lsb-release
-sudo apt install cmake
-sudo apt install build-essential libtool autoconf unzip wget
-sudo apt-get install terminator
+sudo apt-get install ssh firefox zlib1g software-properties-common lsb-release cmake build-essential libtool autoconf unzip wget htop ninja-build terminator
 ```
 
 These packages will prepare the board for development. If you are working extensively with Python, install `conda` package manager. The following commands will install `miniconda`:
@@ -101,6 +96,79 @@ make clean && make
 To monitor the board, we will install `jetson-stats`:
 ```bash
 sudo pip3 install -U jetson-stats
+```
+
+
+### Install PyTorch
+
+First, we will install the dependencies:
+```bash
+sudo apt-get install libopenblas-base libopenmpi-dev libomp-dev
+sudo apt-get install libjpeg-dev zlib1g-dev libpython3-dev libopenblas-dev libavcodec-dev libavformat-dev libswscale-dev
+```
+
+Then, we initialize the conda environment for PyTorch:
+```bash
+conda create -n torchenv python=3.10 pip
+conda activate torchenv
+```
+
+Now, we can install PyTorch:
+```bash
+pip install Cython
+cd ~/Downloads
+wget https://nvidia.box.com/shared/static/0h6tk4msrl9xz3evft9t0mpwwwkw7a32.whl -O torch-2.1.0-cp310-cp310-linux_aarch64.whl
+pip install numpy torch-2.1.0-cp310-cp310-linux_aarch64.whl
+```
+
+Finally, we install `torchvision`:
+```bash
+cd ~/Downloads
+git clone --branch v0.16.1 https://github.com/pytorch/vision torchvision
+export BUILD_VERSION=0.16.1
+cd torchvision/
+python setup.py install --user
+cd ../
+pip install Pillow
+```
+
+To test PyTorch, run the following:
+```python
+import torch
+
+print(torch.__version__)
+print('CUDA available: ' + str(torch.cuda.is_available()))
+print('cuDNN version: ' + str(torch.backends.cudnn.version()))
+
+a = torch.cuda.FloatTensor(2).zero_()
+print('Tensor a = ' + str(a))
+b = torch.randn(2).cuda()
+print('Tensor b = ' + str(b))
+c = a + b
+print('Tensor c = ' + str(c))
+```
+
+To test `torchvision`, run the following:
+```python
+import torch
+import torchvision
+
+print(torchvision.__version__)
+
+from torchvision.models import resnet50
+
+m = resnet50(weights=None)
+m.eval()
+x = torch.randn((4,3,224,224))
+m(x)
+```
+
+
+### Set Performance Mode
+
+```bash
+sudo nvpmodel -m 0
+sudo jetson_clocks
 ```
 
 
