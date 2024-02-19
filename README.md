@@ -307,6 +307,11 @@ sudo nvpmodel -m 0
 sudo jetson_clocks
 ```
 
+Also set fan speed to maximal:
+```bash
+sudo jetson_clocks --fan
+```
+
 
 ### Notes
 
