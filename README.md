@@ -189,6 +189,116 @@ x = torch.randn((4,3,224,224))
 m(x)
 ```
 
+### Ensure LibTorch
+
+To ensure that `libtorch` is installed, run the following:
+```bash
+cd ~/Documents/workspace/
+mkdir tests
+cd tests
+mkdir build
+```
+
+Then, create a `CMakeLists.txt` file, with the following content:
+```cmake
+cmake_minimum_required(VERSION 3.18 FATAL_ERROR)
+project(torchsc)
+
+find_package(Torch REQUIRED)
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${TORCH_CXX_FLAGS}")
+
+add_executable(torchsc torchsc.cpp)
+target_link_libraries(torchsc "${TORCH_LIBRARIES}")
+set_property(TARGET torchsc PROPERTY CXX_STANDARD 17)
+
+# The following code block is suggested to be used on Windows.
+# According to https://github.com/pytorch/pytorch/issues/25457,
+# the DLLs need to be copied to avoid memory errors.
+if (MSVC)
+  file(GLOB TORCH_DLLS "${TORCH_INSTALL_PREFIX}/lib/*.dll")
+  add_custom_command(TARGET torchsc
+                     POST_BUILD
+                     COMMAND ${CMAKE_COMMAND} -E copy_if_different
+                     ${TORCH_DLLS}
+                     $<TARGET_FILE_DIR:example-app>)
+endif (MSVC)
+```
+
+Finally, create a `torchsc.cpp` file, with the following content:
+```cpp
+#include <torch/torch.h>
+#include <iostream>
+
+int main() {
+    torch::Tensor tensor = torch::rand({2, 3});
+    std::cout << tensor << std::endl;
+}
+```
+
+The directory structure should look like this:
+```bash
+.
+├── build
+├── CMakeLists.txt
+└── torchsc.cpp
+
+1 directory, 2 files
+```
+
+To build the project, run the following:
+```bash
+cd build
+cmake -DCMAKE_PREFIX_PATH=`python3 -c 'import torch;print(torch.utils.cmake_prefix_path)'` ..
+cmake --build . --config Release
+```
+
+Finally, run the executable:
+```bash
+./torchsc
+```
+
+### Kineto
+
+Kineto is a library that provides performance analysis for PyTorch. It is a part of the PyTorch Profiler. However, it is not built in the PyTorch wheel for Jetson. To install it, you would need to __first build PyTorch from source__. After that, you can build `libkineto` from source. Otherwise, you will be getting the following warning:
+```bash
+static library kineto_LIBRARY-NOTFOUND not found
+```
+
+To install Kineto from source, you can run the following:
+
+```bash
+export CUDA_SOURCE_DIR=/usr/local/cuda-12.2
+git clone --recursive --branch v0.4.0 https://github.com/pytorch/kineto.git
+cd kineto/libkineto
+mkdir build && cd build
+cmake ..
+make
+```
+
+After ensuring that `libkineto` is working, you can install it:
+```bash
+sudo make install
+```
+
+To test the `libkineto` library, run the following:
+```python
+import torch
+import torch.nn as nn
+
+x = torch.randn(1, 1).cuda()
+lin = nn.Linear(1, 1).cuda()
+
+with torch.profiler.profile(
+    activities=[
+        torch.profiler.ProfilerActivity.CPU,
+        torch.profiler.ProfilerActivity.CUDA]
+) as p:
+    for _ in range(10):
+        out = lin(x)
+print(p.key_averages().table(
+    sort_by="self_cuda_time_total", row_limit=-1))
+```
+
 
 ### Set Performance Mode
 
