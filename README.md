@@ -53,7 +53,7 @@ Then, install the following packages:
 ```bash
 sudo apt-get upgrade
 sudo apt-get install python3 python3-dev python3-distutils python3-venv python3-pip
-sudo apt-get install ssh firefox zlib1g software-properties-common lsb-release cmake build-essential libtool autoconf unzip wget htop ninja-build terminator
+sudo apt-get install ssh firefox zlib1g software-properties-common lsb-release cmake build-essential libtool autoconf unzip wget htop ninja-build terminator zip
 ```
 
 These packages will prepare the board for development. If you are working extensively with Python, install `conda` package manager. The following commands will install `miniconda`:
@@ -313,6 +313,32 @@ sudo jetson_clocks --fan
 ```
 
 
+### Install Java
+
+```bash
+sudo apt-get update
+sudo apt-get install openjdk-11-jdk
+java -version
+```
+
+
+### Install Bazel
+
+To install Bazel, you can run the following:
+```bash
+cd ~/Downloads
+wget https://github.com/bazelbuild/bazelisk/releases/download/v1.8.1/bazelisk-linux-arm64
+chmod +x bazelisk-linux-arm64
+sudo mv bazelisk-linux-arm64 /usr/local/bin/bazel
+which bazel
+```
+
+
 ### Notes
 
 It is important to note that the NVIDIA SDK Manager must be installed on an Ubuntu 20.04 engine. I tried two different machines running Ubuntu 22.04 and attempted to flash the board, but it would yield errors. I also tried Ubuntu 18.04, but the latest supported Jetpack was `5.x.y`, and at the moment of writing, the latest Jetpack is `6.z`. Therefore, the host machine must be running Ubuntu 20.04.
+
+
+### TODO
+
+- [ ] Install `torch-tensorrt`
