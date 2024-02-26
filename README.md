@@ -339,6 +339,11 @@ which bazel
 It is important to note that the NVIDIA SDK Manager must be installed on an Ubuntu 20.04 engine. I tried two different machines running Ubuntu 22.04 and attempted to flash the board, but it would yield errors. I also tried Ubuntu 18.04, but the latest supported Jetpack was `5.x.y`, and at the moment of writing, the latest Jetpack is `6.z`. Therefore, the host machine must be running Ubuntu 20.04.
 
 
+### Helpful Links
+
+- [https://pythops.com/post/compile-deeplearning-libraries-for-jetson-nano.html](Deep Learning Libraries Compilation on Jetson Nano)
+
+
 ### TODO
 
 - [ ] Install `torch-tensorrt`
