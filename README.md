@@ -341,7 +341,7 @@ It is important to note that the NVIDIA SDK Manager must be installed on an Ubun
 
 ### Helpful Links
 
-- [https://pythops.com/post/compile-deeplearning-libraries-for-jetson-nano.html](Deep Learning Libraries Compilation on Jetson Nano)
+- [Deep Learning Libraries Compilation on Jetson Nano](https://pythops.com/post/compile-deeplearning-libraries-for-jetson-nano.html)
 
 
 ### TODO
